@@ -1,0 +1,36 @@
+.user-profile {
+  color: white;
+}
+.user-profile__image {
+  height: 50%;
+  position: relative;
+  background-size: cover;
+  background-position: top;
+  background-image: url(https://i.pinimg.com/564x/ca/42/c8/ca42c8facd8f2b37557d17bc077900c0.jpg);
+  border-radius: 8px;
+}
+
+.user-profile__body {
+  text-align: center;
+  padding-left: 10px;
+}
+
+.user-profile__body-name {
+  font-size: 20px;
+  margin: 0 auto;
+}
+
+.user-profile__body-job {
+  font-size: 14px;
+  font-weight: 300;
+  margin-top: 5px;
+  color: #919191;
+}
+
+.user-profile__body-bio {
+  font-size: 14px;
+  color: #7b7b7b;
+  font-weight: 300;
+  margin: 10px auto;
+  line-height: 20px;
+}

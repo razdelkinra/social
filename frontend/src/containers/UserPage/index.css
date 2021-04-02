@@ -1,0 +1,26 @@
+.user-page {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 64px;
+  grid-template-areas:
+    ". . . . . . . . . . . ."
+    ". . . . . . . . . . . ."
+    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    ". . . . . . . . . . . ."
+    ". . . . . . . . . . . .";
+}
+.user-profile {
+  grid-area: profile;
+}
+.user-navigation {
+  grid-area: navigation;
+}
