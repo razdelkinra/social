@@ -1,11 +1,11 @@
 .user-page {
   display: grid;
   height: 100%;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 0px 64px;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  gap: 0px 32px;
   grid-template-areas:
-    ". . . . . . . . . . . ."
+    ". . . . . . . . . . . logout"
     ". . . . . . . . . . . ."
     "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
     "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
@@ -20,7 +20,19 @@
 }
 .user-profile {
   grid-area: profile;
+  max-width: 310px;
 }
 .user-navigation {
   grid-area: navigation;
+}
+
+.logout-button {
+  grid-area: logout;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: fit-content;
+  font-size: 18px;
+  padding: 8px;
 }

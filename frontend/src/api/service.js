@@ -2,8 +2,8 @@ import axios from "axios";
 
 function Service(httpMethod, path, payload, headers) {
   const token = localStorage.getItem("token");
-  const headerAuth = token && { Authorization: `Bearer ${token}` };
-  const url = "http://jsonplaceholder.typicode.com";
+  const headerAuth = token && { Authorization: token };
+  const url = "http://localhost:8899/";
   const cancel = axios.CancelToken.source();
 
   const service = axios.create({

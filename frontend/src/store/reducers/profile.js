@@ -5,13 +5,7 @@ export const slice = createSlice({
   name: "profile",
   initialState: {
     isFetching: false,
-    data: {
-      name: null,
-      birthDate: null,
-      sex: null,
-      homeTown: null,
-      photoUrl: null,
-    },
+    data: {},
   },
   reducers: {
     getProfileRequest: (state) => {
@@ -35,11 +29,8 @@ export const getProfile = () => (dispatch) => {
   return getProfileApi()
     .then(({ data }) => dispatch(getProfileReceive(data)))
     .catch((error) => {
-      error.clientMessage = "Ошибка при получении данных профиля";
       dispatch(getProfileError({ error }));
     });
 };
-
-export const selectCount = (state) => state.counter.value;
 
 export default slice.reducer;
