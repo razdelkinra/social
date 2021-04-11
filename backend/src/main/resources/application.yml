@@ -4,10 +4,19 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
     enabled: true
+    contexts: "local"
   jpa:
     database: MYSQL
   datasource:
-    url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+#    username: ${DATABASE_USER}
+#    password: ${DATABASE_PASSWORD}
+#    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+#    url: jdbc:mysql://localhost:3306/test1
+#    username: deepti
+#    password: lalwani
+#    driver-class-name: com.mysql.jdbc.Driver

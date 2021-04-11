@@ -2,6 +2,7 @@ package com.otus.social.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -31,6 +32,7 @@ class SecurityConfiguration(var provider: AuthenticationProvider) : WebSecurityC
     }
 
     override fun configure(http: HttpSecurity) {
+        http.cors()
         http.authorizeRequests()
                 .antMatchers("/token", "api/users/registration").permitAll()
                 .and()
@@ -41,9 +43,7 @@ class SecurityConfiguration(var provider: AuthenticationProvider) : WebSecurityC
                 .authenticated()
                 .and()
                 .httpBasic().disable()
-                .cors().disable()
                 .csrf().disable()
-                .cors().disable()
                 .formLogin().disable()
                 .logout().disable()
                 .anonymous().disable()
