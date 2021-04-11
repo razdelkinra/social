@@ -17,6 +17,7 @@ import springfox.documentation.annotations.ApiIgnore
 
 @RestController
 @RequestMapping
+@CrossOrigin(origins = ["*"])
 class UserController(private val userService: UserService) {
 
     @ApiOperation(value = "Get user")

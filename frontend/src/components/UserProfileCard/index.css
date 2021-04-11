@@ -20,17 +20,8 @@
   margin: 0 auto;
 }
 
-.user-profile__body-job {
-  font-size: 14px;
-  font-weight: 300;
-  margin-top: 5px;
-  color: #919191;
-}
-
-.user-profile__body-bio {
-  font-size: 14px;
-  color: #7b7b7b;
-  font-weight: 300;
-  margin: 10px auto;
-  line-height: 20px;
+h4 {
+  color: grey;
+  padding: 0;
+  margin: 0;
 }

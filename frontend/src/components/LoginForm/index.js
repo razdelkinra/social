@@ -1,23 +1,26 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../../store/reducers/auth";
+import { useHistory } from "react-router-dom";
+import { getToken } from "../../store/reducers/auth";
 import "./index.css";
 
 export const LoginForm = () => {
-  const [email, setEmail] = useState("");
+  const [login, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
 
-  const disableSubmit = !(email && password);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const disableSubmit = !(login && password);
 
   return (
     <div className="login-form">
       <form>
         <p>Welcome</p>
         <input
-          type="email"
-          placeholder="Email"
-          value={email}
+          type="login"
+          placeholder="Login"
+          value={login}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
@@ -28,10 +31,16 @@ export const LoginForm = () => {
         />
         <input
           type="button"
-          value="Sign in"
+          value="Login"
           disabled={disableSubmit}
-          onClick={() => dispatch(login({ email, password }))}
+          onClick={() => dispatch(getToken({ login, password }))}
         />
+        <button
+          className="sign-up-button"
+          onClick={() => history.push("registration")}
+        >
+          Sign Up
+        </button>
       </form>
     </div>
   );

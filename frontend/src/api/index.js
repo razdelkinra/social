@@ -1,3 +1,7 @@
 import Service from "./service";
 
-export const getProfileApi = () => Service("get", "/users/1");
+export const signUpApi = (data) => Service("post", "registration", data);
+
+export const getTokenApi = (data) => Service("post", "token", data);
+
+export const getProfileApi = () => Service("get", "users");

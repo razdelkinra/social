@@ -43,6 +43,7 @@ class SecurityConfiguration(var provider: AuthenticationProvider) : WebSecurityC
                 .httpBasic().disable()
                 .cors().disable()
                 .csrf().disable()
+                .cors().disable()
                 .formLogin().disable()
                 .logout().disable()
                 .anonymous().disable()
