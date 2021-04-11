@@ -39,11 +39,4 @@ class ClientRepository(var jdbcTemplate: JdbcTemplate, var namedJdbcTemplate: Na
     fun addClient(credential: ClientDto): Int {
         return jdbcTemplate.update(INSERT_CLIENT_QUERY, credential.userId, credential.login, credential.password, credential.token)
     }
-
-    fun getUserByUserId(userId: Long): ClientDto? {
-        val namedParameters = MapSqlParameterSource().addValue("userId", userId);
-        val listResult = namedJdbcTemplate.query(SELECT_CLIENT_BY_USER_ID_QUERY, namedParameters, ClientMapper())
-        return if (listResult.isEmpty()) null else listResult[0]
-    }
-
 }

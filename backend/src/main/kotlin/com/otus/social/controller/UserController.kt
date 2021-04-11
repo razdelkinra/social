@@ -38,7 +38,7 @@ class UserController(private val userService: UserService) {
     private fun getLoginFromToken(authentication: Authentication) =
             (authentication.principal as User).username
 
-    @ApiOperation(value = "Registration")
+    @ApiOperation(value = "New user registration")
     @ApiResponses(
             value = [
                 ApiResponse(code = 200, response = UserDto::class, message = "User is saved"),
@@ -53,7 +53,7 @@ class UserController(private val userService: UserService) {
         is Either.Right -> ResponseEntity.ok(result.b)
     }
 
-    @ApiOperation(value = "Save user")
+    @ApiOperation(value = "Update user")
     @ApiResponses(
             value = [
                 ApiResponse(code = 200, response = UserDto::class, message = "User is saved"),

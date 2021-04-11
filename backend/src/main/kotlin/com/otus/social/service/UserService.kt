@@ -15,7 +15,7 @@ class UserService(
         private val userRepository: UserRepository,
         private val clientRepository: ClientRepository) {
 
-    @Transactional
+    //@Transactional
     fun addUser(user: UserDto): Either<Throwable, Long> {
         return Either.unsafeCatch {
             val login = user.credential!!.login

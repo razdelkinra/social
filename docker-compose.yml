@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    ports:
+      - "8899:8899"
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=admin
+      - DATABASE_PASSWORD=admin
+      - DATABASE_NAME=otus
+      - DATABASE_PORT=3306
+    networks:
+      - backend
+      - frontend
+
+  # Frontend Service
+  app-client:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - frontend
+
+  # Database Service (Mysql)
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=otus
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - backend
+
+# Volumes
+volumes:
+  db-data:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
+  frontend:

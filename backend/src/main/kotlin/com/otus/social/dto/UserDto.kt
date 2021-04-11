@@ -1,9 +1,11 @@
 package com.otus.social.dto
 
 import com.otus.social.model.Gender
+import io.swagger.annotations.ApiModelProperty
 import java.time.LocalDate
 
 class UserDto(
+        @ApiModelProperty(notes = "For new user id is null")
         val id: Long? = null,
         val firstName: String,
         val lastName: String,

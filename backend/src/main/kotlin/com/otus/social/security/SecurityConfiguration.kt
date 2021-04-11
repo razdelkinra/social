@@ -31,7 +31,6 @@ class SecurityConfiguration(var provider: AuthenticationProvider) : WebSecurityC
     }
 
     override fun configure(http: HttpSecurity) {
-
         http.authorizeRequests()
                 .antMatchers("/token", "api/users/registration").permitAll()
                 .and()
@@ -42,6 +41,7 @@ class SecurityConfiguration(var provider: AuthenticationProvider) : WebSecurityC
                 .authenticated()
                 .and()
                 .httpBasic().disable()
+                .cors().disable()
                 .csrf().disable()
                 .formLogin().disable()
                 .logout().disable()
@@ -60,6 +60,7 @@ class SecurityConfiguration(var provider: AuthenticationProvider) : WebSecurityC
     fun forbiddenEntryPoint(): AuthenticationEntryPoint {
         return HttpStatusEntryPoint(HttpStatus.FORBIDDEN)
     }
+
 
     companion object {
         val PROTECTED_URLS: RequestMatcher = OrRequestMatcher(
