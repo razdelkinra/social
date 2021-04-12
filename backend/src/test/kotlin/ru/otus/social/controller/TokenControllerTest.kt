@@ -1,12 +1,8 @@
 package ru.otus.social.controller
 
-import arrow.core.right
-import arrow.core.valid
 import com.otus.social.SocialApplication
 import com.otus.social.controller.TokenController
-import com.otus.social.controller.UserController
 import com.otus.social.dto.CredentialDto
-import com.otus.social.dto.FriendRequest
 import com.otus.social.dto.LoginDto
 import com.otus.social.dto.UserDto
 import com.otus.social.model.Gender
@@ -14,12 +10,8 @@ import com.otus.social.service.ClientService
 import com.otus.social.service.UserService
 import org.junit.Assert
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.security.core.Authentication
-import org.springframework.security.core.authority.AuthorityUtils
-import org.springframework.security.core.userdetails.User
 import org.springframework.test.annotation.Rollback
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate

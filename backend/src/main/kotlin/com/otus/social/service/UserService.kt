@@ -15,7 +15,7 @@ class UserService(
         private val userRepository: UserRepository,
         private val clientRepository: ClientRepository) {
 
-    //@Transactional
+    @Transactional
     fun addUser(user: UserDto): Either<Throwable, Long> {
         return Either.unsafeCatch {
             val login = user.credential!!.login
@@ -36,11 +36,9 @@ class UserService(
         return Either.unsafeCatch { userRepository.updateUser(user) }
     }
 
-    fun addFriend(userId: Long, friendId: Long) = Either.unsafeCatch { userRepository.addFriend(userId, friendId) }
-
-    fun getFriends(userId: Long) = Either.unsafeCatch { userRepository.getFriend(userId) }
-
     fun getUser(id: Long) = Either.unsafeCatch { userRepository.getUser(id) }
+
+    fun getUsers(id: Long) = Either.unsafeCatch { userRepository.getUsers().filterNot { user -> user.id == id } }
 
     fun getUserByLogin(login: String) = Either.unsafeCatch { userRepository.getUserByLogin(login) }
 

@@ -4,4 +4,4 @@ export const signUpApi = (data) => Service("post", "registration", data);
 
 export const getTokenApi = (data) => Service("post", "token", data);
 
-export const getProfileApi = () => Service("get", "api/users");
+export const getProfileApi = () => Service("get", "api/profile");

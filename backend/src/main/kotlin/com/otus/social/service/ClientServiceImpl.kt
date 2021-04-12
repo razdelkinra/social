@@ -3,6 +3,7 @@ package com.otus.social.service
 import arrow.core.Either
 import com.otus.social.dto.UserDto
 import com.otus.social.model.Failure
+import com.otus.social.model.SocialUserDetails
 import com.otus.social.model.UserNotFound
 import com.otus.social.repository.ClientRepository
 import com.otus.social.repository.UserRepository
@@ -10,7 +11,6 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 import org.springframework.security.core.authority.AuthorityUtils
-import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -37,7 +37,9 @@ class ClientServiceImpl(
 
     override fun findByToken(token: String): UserDetails? {
         clientRepository.findByToken(token)?.let { client ->
-            return User(client.login, client.password, true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
+            var user = SocialUserDetails(client.login, client.password, true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
+            user.id = client.userId
+            return user
         }
         throw UserNotFound(USER_NOT_FOUND)
     }

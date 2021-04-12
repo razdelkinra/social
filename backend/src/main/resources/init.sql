@@ -13,6 +13,13 @@ CREATE TABLE FRIENDS
  user_id bigint(20),
  friend_id bigint(20)
 );
+CREATE TABLE FRIEND_REQUEST
+(
+ user_id bigint(20),
+ from_user_id,
+ request_date DATE,
+ message varchar (512)
+);
 CREATE TABLE CLIENTS
 (
  user_id bigint(20),

@@ -56,4 +56,21 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="create-friend_request-table" author="rrazdelkin">
+        <createTable tableName="FRIEND_REQUEST">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="PK_USER_ID_KEY"/>
+            </column>
+            <column name="from_user_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="PK_USER_ID_KEY"/>
+            </column>
+            <column name="request_date" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="VARCHAR(1000)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

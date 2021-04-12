@@ -28,12 +28,7 @@ class UserRepository(
             "UPDATE USERS SET firstname = :firstname, lastName = :lastName, birthday = :birthday, " +
                     "gender = :gender, interests = :interests, city = :city where user_id = :userId"
     val SELECT_USER_QUERY = "SELECT * FROM USERS WHERE USER_ID = :id"
-    val INSERT_FRIEND_QUERY = "INSERT INTO FRIENDS VALUES (?, ?)"
-    val SELECT_FRIENDS_QUERY = """
-        SELECT * FROM USERS WHERE USER_ID IN (
-          SELECT friend_id FROM FRIENDS WHERE user_id = :id
-        )
-    """.trimIndent()
+    val SELECT_ALL_USER_QUERY = "SELECT * FROM USERS"
 
     fun saveUser(user: UserDto): Long {
         val params = getUserMapParam(user)
@@ -57,23 +52,14 @@ class UserRepository(
         return if (listResult.isEmpty()) null else listResult[0]
     }
 
+    fun getUsers(): MutableList<UserDto> = namedJdbcTemplate.query(SELECT_ALL_USER_QUERY, UserMapper())
+
     fun getUserByLogin(login: String): UserDto? {
         return clientRepository.findByLogin(login)?.let {
             val namedParameters = MapSqlParameterSource().addValue("id", it.userId)
             val listResult = namedJdbcTemplate.query(SELECT_USER_QUERY, namedParameters, UserMapper())
             return if (listResult.isEmpty()) null else listResult[0]
         }
-    }
-
-    fun addFriend(userId: Long, friendId: Long): Boolean {
-        jdbcTemplate.update(INSERT_FRIEND_QUERY, userId, friendId)
-        jdbcTemplate.update(INSERT_FRIEND_QUERY, friendId, userId)
-        return true
-    }
-
-    fun getFriend(id: Long): List<UserDto> {
-        val namedParameters = MapSqlParameterSource().addValue("id", id);
-        return namedJdbcTemplate.query(SELECT_FRIENDS_QUERY, namedParameters, UserMapper());
     }
 
     private fun getUserMapParam(user: UserDto): MapSqlParameterSource {

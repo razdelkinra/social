@@ -62,6 +62,10 @@ compileTestKotlin {
     }
 }
 
+test {
+    useJUnitPlatform()
+}
+
 if (project.hasProperty("prod")) {
     tasks.withType(Jar) {
         dependsOn(":frontend:yarn_build")
