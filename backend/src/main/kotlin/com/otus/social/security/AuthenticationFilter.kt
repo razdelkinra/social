@@ -21,6 +21,7 @@ class AuthenticationFilter(requiresAuthenticationRequestMatcher: RequestMatcher)
         } else {
             token = StringUtils.removeStart(token, "Bearer").trim()
             val requestAuthentication = UsernamePasswordAuthenticationToken(token, token)
+            //requestAuthentication.details
             authenticationManager.authenticate(requestAuthentication)
         }
     }

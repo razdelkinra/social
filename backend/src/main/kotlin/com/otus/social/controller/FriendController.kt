@@ -28,7 +28,7 @@ class FriendController(private val friendService: FriendService) {
                 ApiResponse(code = 500, response = Failure::class, message = "Error occurred while user saving")
             ]
     )
-    @PostMapping("/api/friends")
+    @PostMapping("/api/friends/request")
     fun addFriendRequest(@RequestBody friendRequestDto: FriendRequestDto) =
             when (val result = friendService.addFriendRequest(friendRequestDto)) {
                 is Either.Left -> when (result.a) {
@@ -47,6 +47,23 @@ class FriendController(private val friendService: FriendService) {
     )
     @GetMapping("/api/friends")
     fun getFriends(@ApiIgnore authentication: Authentication) = when (val result = friendService.getFriends(authentication.getId())) {
+        is Either.Left -> when (result.a) {
+            else -> ResponseEntity.badRequest().body(result.a.message)
+        }
+        is Either.Right -> ResponseEntity.ok(result.b)
+    }
+
+
+    @ApiOperation(value = "Add friend")
+    @ApiResponses(
+            value = [
+                ApiResponse(code = 200, response = UserDto::class, message = "Friends where found"),
+                ApiResponse(code = 400, response = BadRequest::class, message = "Incorrect request data"),
+                ApiResponse(code = 500, response = Failure::class, message = "Error occurred while user saving")
+            ]
+    )
+    @PostMapping("/api/friends")
+    fun addFriend(@ApiIgnore authentication: Authentication, friendId: Long) = when (val result = friendService.addFriend(authentication.getId(), friendId)) {
         is Either.Left -> when (result.a) {
             else -> ResponseEntity.badRequest().body(result.a.message)
         }
