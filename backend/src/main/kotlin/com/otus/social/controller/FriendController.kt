@@ -1,6 +1,7 @@
 package com.otus.social.controller
 
 import arrow.core.Either
+import com.otus.social.dto.FriendApproveDto
 import com.otus.social.dto.FriendRequestDto
 import com.otus.social.dto.UserDto
 import com.otus.social.model.BadRequest
@@ -63,12 +64,13 @@ class FriendController(private val friendService: FriendService) {
             ]
     )
     @PostMapping("/api/friends")
-    fun addFriend(@ApiIgnore authentication: Authentication, friendId: Long) = when (val result = friendService.addFriend(authentication.getId(), friendId)) {
-        is Either.Left -> when (result.a) {
-            else -> ResponseEntity.badRequest().body(result.a.message)
-        }
-        is Either.Right -> ResponseEntity.ok(result.b)
-    }
+    fun addFriend(@ApiIgnore authentication: Authentication, @RequestBody friendDto: FriendApproveDto) =
+            when (val result = friendService.addFriend(authentication.getId(), friendDto.friendId)) {
+                is Either.Left -> when (result.a) {
+                    else -> ResponseEntity.badRequest().body(result.a.message)
+                }
+                is Either.Right -> ResponseEntity.ok(result.b)
+            }
 
     @ApiOperation(value = "Get friend request list")
     @ApiResponses(
