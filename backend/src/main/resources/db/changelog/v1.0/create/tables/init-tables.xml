@@ -73,4 +73,48 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="insert users" author="rrazdelkin">
+        <insert tableName="USERS">
+            <column name="user_id">1</column>
+            <column name="firstname">Эбони</column>
+            <column name="lastName">Бриджес</column>
+            <column name="birthday">1981-02-15</column>
+            <column name="gender">female</column>
+            <column name="interests">Спорт, вышивка</column>
+            <column name="city">Сидней</column>
+        </insert>
+        <insert tableName="USERS">
+            <column name="user_id">2</column>
+            <column name="firstname">Курт</column>
+            <column name="lastName">Воннегут</column>
+            <column name="birthday">1922-11-11</column>
+            <column name="gender">male</column>
+            <column name="interests">Книги, музыка</column>
+            <column name="city">Индиана</column>
+        </insert>
+        <insert tableName="USERS">
+            <column name="user_id">3</column>
+            <column name="firstname">Алексей</column>
+            <column name="lastName">Навальный</column>
+            <column name="birthday">1976-04-06</column>
+            <column name="gender">male</column>
+            <column name="interests">Сухари, коран, прогулки</column>
+            <column name="city">Москва</column>
+        </insert>
+        <insert tableName="CLIENTS">
+            <column name="user_id">1</column>
+            <column name="login">ebony</column>
+            <column name="password">123456</column>
+        </insert>
+        <insert tableName="CLIENTS">
+            <column name="user_id">2</column>
+            <column name="login">kurt</column>
+            <column name="password">123456</column>
+        </insert>
+        <insert tableName="CLIENTS">
+            <column name="user_id">3</column>
+            <column name="login">alex</column>
+            <column name="password">123456</column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
