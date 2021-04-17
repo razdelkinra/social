@@ -3,18 +3,18 @@
   height: 100%;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(12, 1fr);
-  gap: 0px 32px;
+
   grid-template-areas:
     ". . . . . . . . . . . logout"
     ". . . . . . . . . . . ."
-    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
-    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
-    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
-    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
-    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
-    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
-    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
-    "profile profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation navigation"
+    "profile profile navigation navigation navigation navigation navigation navigation navigation navigation navigation navigation"
     ". . . . . . . . . . . ."
     ". . . . . . . . . . . .";
 }

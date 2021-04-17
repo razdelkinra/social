@@ -1,0 +1,33 @@
+.users {
+  display: flex;
+  padding: 28px;
+  flex-wrap: wrap;
+}
+
+.users__item {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  align-items: center;
+  padding: 10px;
+}
+
+.users__avatar {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+
+.users__add {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: -12px;
+  cursor: pointer;
+}
+
+.users__name {
+  color: white;
+  font-size: 14px;
+  margin-top: 4px;
+}

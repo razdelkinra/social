@@ -21,6 +21,9 @@ export const slice = createSlice({
       state.isFetching = "false";
       state.error = action.payload.error;
     },
+    logout: (state) => {
+      state.isAuthorized = false;
+    },
   },
 });
 
@@ -39,4 +42,5 @@ export const getToken = (data) => (dispatch) => {
     });
 };
 
+export const { logout } = slice.actions;
 export default slice.reducer;

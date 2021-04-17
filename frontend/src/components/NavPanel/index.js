@@ -9,8 +9,8 @@ export const NavPanel = (props) => {
       {tabs.map((i, index) => (
         <li
           key={i.title}
-          className={activeTab === index && "active"}
-          onClick={() => setActiveTabHandler(index)}
+          className={activeTab === i.type && "active"}
+          onClick={() => setActiveTabHandler(i.type)}
         >
           {i.title}
         </li>

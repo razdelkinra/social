@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { UserProfileCard } from "../../components/UserProfileCard";
 import { UserNavigation } from "../../components/UserNavigation";
 import { getProfile } from "../../store/reducers/profile";
+import { logout } from "../../store/reducers/auth";
 
 import "./index.css";
 
@@ -17,6 +18,7 @@ export const UserPage = () => {
   }, []);
 
   const logoutHandler = () => {
+    dispatch(logout());
     localStorage.clear();
     history.push("login");
   };
