@@ -15,7 +15,9 @@ buildscript {
         maven {
             url "https://jitpack.io"
         }
+        maven { url 'http://repo1.maven.org/maven2' }
         mavenCentral()
+        jcenter()
     }
 
     dependencies {
@@ -27,14 +29,11 @@ buildscript {
     }
 }
 
-
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'kotlin-jpa'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'maven-publish'
-apply plugin: 'kotlin-kapt'
 
 allprojects {
     group = "com.otus.social"
@@ -44,10 +43,24 @@ allprojects {
         mavenLocal()
         mavenCentral()
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "https://jitpack.io"
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "https://jitpack.io"
+        }
+        maven { url "https://repo.spring.io/plugins-snapshot" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'http://repo1.maven.org/maven2' }
     }
 }
 group = 'rrazdelkin'
-
 
 bootJar {
     enabled = false
@@ -55,9 +68,4 @@ bootJar {
 
 jar {
     enabled = true
-}
-
-task docker(type: Exec) {
-    executable "sh"
-    args "-c", "docker build -t pokemon-alea ."
 }

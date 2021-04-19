@@ -9,6 +9,7 @@ buildscript {
         }
         gradlePluginPortal()
         mavenCentral()
+        jcenter()
     }
 
     ext {
@@ -27,14 +28,4 @@ buildscript {
         classpath "com.github.node-gradle:gradle-node-plugin:3.0.1"
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
     }
-}
-
-apply plugin: 'com.github.node-gradle.node'
-
-yarn_build {
-    dependsOn 'yarn_install'
-}
-
-yarn_test {
-    dependsOn 'yarn_install'
 }
