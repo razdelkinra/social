@@ -12,11 +12,11 @@ export const UserNavigation = () => {
   const [activeTab, setActiveTab] = useState("users");
 
   const tabs = [
-    { title: "Пользователи", type: "users" },
-    { title: "Заявки в друзья", type: "requests" },
-    { title: "Друзья", type: "friends" },
-    { title: "Сообщения", type: "messages" },
-    { title: "Новости", type: "news" },
+    { title: "Users", type: "users" },
+    { title: "Friend request", type: "requests" },
+    { title: "Friends", type: "friends" },
+    { title: "Message", type: "messages" },
+    { title: "News", type: "news" },
   ];
 
   const TabContent = {

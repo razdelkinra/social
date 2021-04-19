@@ -1,6 +1,5 @@
 package com.otus.social.controller
 
-import arrow.core.Either
 import com.otus.social.dto.FriendApproveDto
 import com.otus.social.dto.FriendRequestDto
 import com.otus.social.dto.UserDto
@@ -8,10 +7,10 @@ import com.otus.social.model.BadRequest
 import com.otus.social.model.Failure
 import com.otus.social.service.FriendService
 import com.otus.social.utils.getId
+import com.otus.social.utils.handleResponse
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
-import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
 import springfox.documentation.annotations.ApiIgnore
@@ -31,12 +30,7 @@ class FriendController(private val friendService: FriendService) {
     )
     @PostMapping("/api/friends/request")
     fun addFriendRequest(@RequestBody friendRequestDto: FriendRequestDto) =
-            when (val result = friendService.addFriendRequest(friendRequestDto)) {
-                is Either.Left -> when (result.a) {
-                    else -> ResponseEntity.badRequest().body(result.a.message)
-                }
-                is Either.Right -> ResponseEntity.ok("ok")
-            }
+            handleResponse { friendService.addFriendRequest(friendRequestDto) }
 
     @ApiOperation(value = "Get friend list")
     @ApiResponses(
@@ -47,12 +41,8 @@ class FriendController(private val friendService: FriendService) {
             ]
     )
     @GetMapping("/api/friends")
-    fun getFriends(@ApiIgnore authentication: Authentication) = when (val result = friendService.getFriends(authentication.getId())) {
-        is Either.Left -> when (result.a) {
-            else -> ResponseEntity.badRequest().body(result.a.message)
-        }
-        is Either.Right -> ResponseEntity.ok(result.b)
-    }
+    fun getFriends(@ApiIgnore authentication: Authentication) =
+            handleResponse { friendService.getFriends(authentication.getId()) }
 
 
     @ApiOperation(value = "Add friend")
@@ -65,12 +55,7 @@ class FriendController(private val friendService: FriendService) {
     )
     @PostMapping("/api/friends")
     fun addFriend(@ApiIgnore authentication: Authentication, @RequestBody friendDto: FriendApproveDto) =
-            when (val result = friendService.addFriend(authentication.getId(), friendDto.friendId)) {
-                is Either.Left -> when (result.a) {
-                    else -> ResponseEntity.badRequest().body(result.a.message)
-                }
-                is Either.Right -> ResponseEntity.ok(result.b)
-            }
+            handleResponse { friendService.addFriend(authentication.getId(), friendDto.friendId) }
 
     @ApiOperation(value = "Get friend request list")
     @ApiResponses(
@@ -81,11 +66,7 @@ class FriendController(private val friendService: FriendService) {
             ]
     )
     @GetMapping("/api/friends/requests")
-    fun getFriendRequests(@ApiIgnore authentication: Authentication) = when (val result = friendService.getFriendRequest(authentication.getId())) {
-        is Either.Left -> when (result.a) {
-            else -> ResponseEntity.badRequest().body(result.a.message)
-        }
-        is Either.Right -> ResponseEntity.ok(result.b)
-    }
+    fun getFriendRequests(@ApiIgnore authentication: Authentication) =
+            handleResponse { friendService.getFriendRequest(authentication.getId()) }
 
 }

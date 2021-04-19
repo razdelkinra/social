@@ -45,6 +45,7 @@ export const UserList = ({ getList, type }) => {
   return (
     <div className="users">
       {list.map((user) => {
+        console.log(user)
         return (
           <div className="users__item">
             <div className="users__avatar">

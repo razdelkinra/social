@@ -71,5 +71,4 @@ class UserRepository(
                 .addValue("interests", user.interests)
                 .addValue("city", user.city)
     }
-
 }

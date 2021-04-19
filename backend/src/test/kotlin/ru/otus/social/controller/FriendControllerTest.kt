@@ -48,7 +48,7 @@ class FriendControllerTest {
         controller.addFriendRequest(friendRequest)
         val requests = friendService.getFriendRequest(id1).orNull()!!
         Assert.assertTrue(requests[0].message == "Add me please")
-        Assert.assertTrue(requests[0].fromUserId == id2)
+        Assert.assertTrue(requests[0].id == id2)
     }
 
     private fun getUser(userName: String): Triple<String, String, UserDto> {

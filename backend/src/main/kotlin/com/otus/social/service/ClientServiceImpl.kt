@@ -37,7 +37,7 @@ class ClientServiceImpl(
 
     override fun findByToken(token: String): UserDetails? {
         clientRepository.findByToken(token)?.let { client ->
-            var user = SocialUserDetails(client.login, client.password, true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
+            val user = SocialUserDetails(client.login, client.password, true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
             user.id = client.userId
             return user
         }

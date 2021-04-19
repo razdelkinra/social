@@ -46,51 +46,51 @@ export const SignUpForm = () => {
         initialValues={initialValues}
         render={({ handleSubmit, submitting, pristine }) => (
           <form onSubmit={handleSubmit}>
-            <p>Регистрация</p>
+            <p>Sign up</p>
             <Field
               name="login"
               component="input"
               type="text"
-              placeholder="Логин"
+              placeholder="Login"
             />
             <Field
               name="password"
               component="input"
               type="password"
-              placeholder="Пароль"
+              placeholder="Password"
             />
             <Field
               name="firstName"
               component="input"
               type="text"
-              placeholder="Имя"
+              placeholder="Name"
             />
 
             <Field
               name="lastName"
               component="input"
               type="text"
-              placeholder="Фамилия"
+              placeholder="Lastname"
             />
 
             <Field
               name="city"
               component="input"
               type="text"
-              placeholder="Город"
+              placeholder="City"
             />
 
             <Field
               name="interests"
               component="input"
               type="text"
-              placeholder="Интересы"
+              placeholder="Interests"
             />
             <div className="bdate-gender">
               <Field
                 name="birthDay"
                 dateFormat="yyyy/MM/dd"
-                placeholder="Дата Рождения"
+                placeholder="Birthday"
                 component={DatePickerField}
               />
               <Field
@@ -99,8 +99,8 @@ export const SignUpForm = () => {
                 component="select"
                 className="select"
               >
-                <option value="male"> Мужской</option>
-                <option value="female"> Женский</option>
+                <option value="male"> Male</option>
+                <option value="female"> Female</option>
               </Field>
             </div>
 
@@ -109,7 +109,7 @@ export const SignUpForm = () => {
               type="submit"
               disabled={submitting || pristine}
             >
-              Отправить
+              Send
             </button>
           </form>
         )}

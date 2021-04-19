@@ -17,6 +17,8 @@ class ClientRepository(var jdbcTemplate: JdbcTemplate, var namedJdbcTemplate: Na
     val SELECT_CLIENT_BY_LOGIN_QUERY = "SELECT * FROM CLIENTS WHERE login = :login"
     val SELECT_CLIENT_BY_USER_ID_QUERY = "SELECT * FROM CLIENTS WHERE user_id = :userId"
     val INSERT_CLIENT_QUERY = "INSERT INTO CLIENTS VALUES (?, ?, ?, ?)"
+    val UPDATE_CLIENT_QUERY =
+            "UPDATE CLIENTS SET user_id = :userId, login = :login, password = :password, token = :token where user_id = :userId"
 
     fun getClient(login: String, password: String): ClientDto? {
         val namedParameters = MapSqlParameterSource().addValue("login", login).addValue("password", password)
@@ -36,7 +38,19 @@ class ClientRepository(var jdbcTemplate: JdbcTemplate, var namedJdbcTemplate: Na
         return if (listResult.isEmpty()) null else listResult[0]
     }
 
-    fun addClient(credential: ClientDto): Int {
-        return jdbcTemplate.update(INSERT_CLIENT_QUERY, credential.userId, credential.login, credential.password, credential.token)
+    fun addClient(clientDto: ClientDto): Int {
+        findByLogin(clientDto.login)?.let { client ->
+            val params = getClientMapParam(clientDto).addValue("userId", clientDto.userId)
+            return namedJdbcTemplate.update(UPDATE_CLIENT_QUERY, params)
+        }
+        return jdbcTemplate.update(INSERT_CLIENT_QUERY, clientDto.userId, clientDto.login, clientDto.password, clientDto.token)
+    }
+
+    private fun getClientMapParam(client: ClientDto): MapSqlParameterSource {
+        return MapSqlParameterSource()
+                .addValue("userId", client.userId)
+                .addValue("login", client.login)
+                .addValue("password", client.password)
+                .addValue("token", client.token)
     }
 }

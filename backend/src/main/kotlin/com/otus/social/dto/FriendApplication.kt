@@ -3,10 +3,12 @@ package com.otus.social.dto
 import springfox.documentation.annotations.ApiIgnore
 import java.time.LocalDate
 
-class FriendRequestDto(
-        val userId: Long,
-        val fromUserId: Long,
+class FriendApplication(
+        val id: Long? = null,
+        val firstName: String,
+        val lastName: String,
         val message: String,
         @ApiIgnore
         val requestDate: LocalDate = LocalDate.now()
+
 )

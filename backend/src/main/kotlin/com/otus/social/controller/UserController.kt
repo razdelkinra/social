@@ -7,6 +7,7 @@ import com.otus.social.model.Failure
 import com.otus.social.service.UserService
 import com.otus.social.utils.getId
 import com.otus.social.utils.getLogin
+import com.otus.social.utils.handleResponse
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
@@ -45,12 +46,8 @@ class UserController(private val userService: UserService) {
             ]
     )
     @GetMapping("/api/users")
-    fun getUsers(@ApiIgnore authentication: Authentication) = when (val result = userService.getUsers(authentication.getId())) {
-        is Either.Left -> when (result.a) {
-            else -> ResponseEntity.badRequest().body(result.a.message)
-        }
-        is Either.Right -> ResponseEntity.ok(result.b)
-    }
+    fun getUsers(@ApiIgnore authentication: Authentication) =
+            handleResponse {userService.getUsers(authentication.getId()) }
 
     @ApiOperation(value = "New user registration")
     @ApiResponses(
@@ -60,12 +57,7 @@ class UserController(private val userService: UserService) {
             ]
     )
     @PostMapping("/registration")
-    fun saveUser(@RequestBody user: UserDto) = when (val result = userService.addUser(user)) {
-        is Either.Left -> when (result.a) {
-            else -> ResponseEntity.badRequest().body(result.a.message)
-        }
-        is Either.Right -> ResponseEntity.ok(result.b)
-    }
+    fun saveUser(@RequestBody user: UserDto) = handleResponse { userService.addUser(user) }
 
     @ApiOperation(value = "Update user")
     @ApiResponses(
@@ -77,10 +69,5 @@ class UserController(private val userService: UserService) {
     )
     @PutMapping("/api/users")
     fun updateUser(@ApiIgnore authentication: Authentication, @RequestBody user: UserDto) =
-            when (val result = userService.updateUser(authentication.getLogin(), user)) {
-                is Either.Left -> when (result.a) {
-                    else -> ResponseEntity.badRequest().body(result.a.message)
-                }
-                is Either.Right -> ResponseEntity.ok(result.b)
-            }
+            handleResponse { userService.updateUser(authentication.getLogin(), user) }
 }

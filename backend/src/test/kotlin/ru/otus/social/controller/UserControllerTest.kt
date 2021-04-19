@@ -67,7 +67,7 @@ class UserControllerTest {
         userDetails.id = id!!
         Mockito.`when`(authentication.principal).thenReturn(userDetails)
         val users = controller.getUsers(authentication).right().orNull()?.body as List<UserDto>
-        Assert.assertTrue(users.size == 2)
+        Assert.assertTrue(users.size == 5)
     }
 
     @Test
