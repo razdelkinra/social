@@ -1,5 +1,6 @@
-package com.otus.social.dto
+package com.otus.social.dto.request
 
+import com.otus.social.dto.CredentialDto
 import com.otus.social.model.Gender
 import io.swagger.annotations.ApiModelProperty
 import java.time.LocalDate

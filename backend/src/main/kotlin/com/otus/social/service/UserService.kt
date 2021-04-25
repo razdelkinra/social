@@ -1,11 +1,13 @@
 package com.otus.social.service
 
 import arrow.core.Either
-import com.otus.social.dto.UserDto
+import com.otus.social.dto.request.FilterUserDto
+import com.otus.social.dto.request.UserDto
 import com.otus.social.model.InvalidRequest
 import com.otus.social.model.UserAlreadyExist
 import com.otus.social.repository.ClientRepository
 import com.otus.social.repository.UserRepository
+import com.otus.social.utils.DataGenerator
 import com.otus.social.utils.unsafeCatch
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -13,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class UserService(
         private val userRepository: UserRepository,
-        private val clientRepository: ClientRepository) {
+        private val clientRepository: ClientRepository,
+        private val dataGenerator: DataGenerator) {
 
     @Transactional
     fun addUser(user: UserDto): Either<Throwable, Long> {
@@ -38,8 +41,12 @@ class UserService(
 
     fun getUser(id: Long) = Either.unsafeCatch { userRepository.getUser(id) }
 
+    fun getUsers(filter: FilterUserDto) = Either.unsafeCatch { userRepository.getUsers(filter) }
+
     fun getUsers(id: Long) = Either.unsafeCatch { userRepository.getUsers().filterNot { user -> user.id == id } }
 
     fun getUserByLogin(login: String) = Either.unsafeCatch { userRepository.getUserByLogin(login) }
+
+    fun generateUser(count: Int) = Either.unsafeCatch { dataGenerator.generateUser(count) }
 
 }

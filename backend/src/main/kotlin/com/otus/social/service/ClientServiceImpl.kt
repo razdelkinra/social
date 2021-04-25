@@ -1,7 +1,7 @@
 package com.otus.social.service
 
 import arrow.core.Either
-import com.otus.social.dto.UserDto
+import com.otus.social.dto.request.UserDto
 import com.otus.social.model.Failure
 import com.otus.social.model.SocialUserDetails
 import com.otus.social.model.UserNotFound

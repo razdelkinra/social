@@ -4,7 +4,7 @@ import com.otus.social.SocialApplication
 import com.otus.social.controller.TokenController
 import com.otus.social.dto.CredentialDto
 import com.otus.social.dto.LoginDto
-import com.otus.social.dto.UserDto
+import com.otus.social.dto.request.UserDto
 import com.otus.social.model.Gender
 import com.otus.social.service.ClientService
 import com.otus.social.service.UserService

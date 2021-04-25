@@ -1,7 +1,7 @@
 package com.otus.social.repository
 
-import com.otus.social.dto.FriendRequestDto
-import com.otus.social.dto.UserDto
+import com.otus.social.dto.request.FriendRequestDto
+import com.otus.social.dto.request.UserDto
 import com.otus.social.mapper.FriendMapper
 import com.otus.social.mapper.UserMapper
 import org.springframework.jdbc.core.JdbcTemplate

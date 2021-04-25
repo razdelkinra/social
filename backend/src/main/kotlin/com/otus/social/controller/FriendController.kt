@@ -1,8 +1,8 @@
 package com.otus.social.controller
 
-import com.otus.social.dto.FriendApproveDto
-import com.otus.social.dto.FriendRequestDto
-import com.otus.social.dto.UserDto
+import com.otus.social.dto.request.FriendApproveDto
+import com.otus.social.dto.request.FriendRequestDto
+import com.otus.social.dto.request.UserDto
 import com.otus.social.model.BadRequest
 import com.otus.social.model.Failure
 import com.otus.social.service.FriendService

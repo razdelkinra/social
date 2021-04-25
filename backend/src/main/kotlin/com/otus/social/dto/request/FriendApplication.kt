@@ -1,4 +1,4 @@
-package com.otus.social.dto
+package com.otus.social.dto.request
 
 import springfox.documentation.annotations.ApiIgnore
 import java.time.LocalDate

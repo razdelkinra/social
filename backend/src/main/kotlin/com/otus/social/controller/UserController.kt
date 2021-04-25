@@ -1,7 +1,7 @@
 package com.otus.social.controller
 
-import arrow.core.Either
-import com.otus.social.dto.UserDto
+import com.otus.social.dto.request.FilterUserDto
+import com.otus.social.dto.request.UserDto
 import com.otus.social.model.BadRequest
 import com.otus.social.model.Failure
 import com.otus.social.service.UserService
@@ -30,12 +30,8 @@ class UserController(private val userService: UserService) {
             ]
     )
     @GetMapping("/api/profile")
-    fun getProfile(@ApiIgnore authentication: Authentication) = when (val result = userService.getUserByLogin(authentication.getLogin())) {
-        is Either.Left -> when (result.a) {
-            else -> ResponseEntity.badRequest().body(result.a.message)
-        }
-        is Either.Right -> if (result.b == null) ResponseEntity.noContent().build() else ResponseEntity.ok(result.b!!)
-    }
+    fun getProfile(@ApiIgnore authentication: Authentication) =
+            handleResponse { userService.getUserByLogin(authentication.getLogin()) }
 
     @ApiOperation(value = "Get users")
     @ApiResponses(
@@ -46,8 +42,7 @@ class UserController(private val userService: UserService) {
             ]
     )
     @GetMapping("/api/users")
-    fun getUsers(@ApiIgnore authentication: Authentication) =
-            handleResponse {userService.getUsers(authentication.getId()) }
+    fun getUsers(@ApiIgnore authentication: Authentication) = handleResponse { userService.getUsers(authentication.getId()) }
 
     @ApiOperation(value = "New user registration")
     @ApiResponses(
@@ -70,4 +65,23 @@ class UserController(private val userService: UserService) {
     @PutMapping("/api/users")
     fun updateUser(@ApiIgnore authentication: Authentication, @RequestBody user: UserDto) =
             handleResponse { userService.updateUser(authentication.getLogin(), user) }
+
+
+    @GetMapping("/api/users/generate")
+    fun generateUser(count: String) {
+        userService.generateUser(count.toInt())
+        ResponseEntity.ok()
+    }
+
+    @ApiOperation(value = "Get users by filter")
+    @ApiResponses(
+            value = [
+                ApiResponse(code = 200, response = UserDto::class, message = "User is saved"),
+                ApiResponse(code = 400, response = BadRequest::class, message = "Incorrect request data")
+            ]
+    )
+    @PostMapping("/api/users")
+    fun getUsers(@RequestBody filterUserDto: FilterUserDto) {
+        userService.getUsers(filterUserDto)
+    }
 }

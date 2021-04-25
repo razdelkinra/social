@@ -1,8 +1,8 @@
 package com.otus.social.service
 
 import arrow.core.Either
-import com.otus.social.dto.FriendApplication
-import com.otus.social.dto.FriendRequestDto
+import com.otus.social.dto.request.FriendApplication
+import com.otus.social.dto.request.FriendRequestDto
 import com.otus.social.repository.FriendRepository
 import com.otus.social.utils.unsafeCatch
 import org.springframework.stereotype.Service

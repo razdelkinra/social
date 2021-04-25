@@ -1,6 +1,6 @@
 package com.otus.social.mapper
 
-import com.otus.social.dto.UserDto
+import com.otus.social.dto.request.UserDto
 import com.otus.social.model.Gender
 import org.springframework.jdbc.core.RowMapper
 import java.sql.ResultSet

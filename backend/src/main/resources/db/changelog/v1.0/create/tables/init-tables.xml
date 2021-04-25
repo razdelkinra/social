@@ -107,17 +107,17 @@
         <insert tableName="CLIENTS">
             <column name="user_id">1</column>
             <column name="login">ebony</column>
-            <column name="password">123456</column>
+            <column name="password">$2a$10$MRFwsUpNMWKo93KwPnLkbefWjS/m.IbY//KwvWoq8AzrS.qiQCU4a</column>
         </insert>
         <insert tableName="CLIENTS">
             <column name="user_id">2</column>
             <column name="login">kurt</column>
-            <column name="password">123456</column>
+            <column name="password">$2a$10$MRFwsUpNMWKo93KwPnLkbefWjS/m.IbY//KwvWoq8AzrS.qiQCU4a</column>
         </insert>
         <insert tableName="CLIENTS">
             <column name="user_id">3</column>
             <column name="login">alex</column>
-            <column name="password">123456</column>
+            <column name="password">$2a$10$MRFwsUpNMWKo93KwPnLkbefWjS/m.IbY//KwvWoq8AzrS.qiQCU4a</column>
         </insert>
     </changeSet>
 </databaseChangeLog>

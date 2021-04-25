@@ -4,7 +4,7 @@ import arrow.core.right
 import com.otus.social.SocialApplication
 import com.otus.social.controller.UserController
 import com.otus.social.dto.CredentialDto
-import com.otus.social.dto.UserDto
+import com.otus.social.dto.request.UserDto
 import com.otus.social.model.Gender
 import com.otus.social.model.SocialUserDetails
 import com.otus.social.service.ClientService

@@ -1,6 +1,6 @@
 package com.otus.social.mapper
 
-import com.otus.social.dto.FriendRequestDto
+import com.otus.social.dto.request.FriendRequestDto
 import org.springframework.jdbc.core.RowMapper
 import java.sql.ResultSet
 
