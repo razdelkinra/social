@@ -81,7 +81,6 @@ class UserController(private val userService: UserService) {
             ]
     )
     @PostMapping("/api/users")
-    fun getUsers(@RequestBody filterUserDto: FilterUserDto) {
-        userService.getUsers(filterUserDto)
-    }
+    fun getUsers(@RequestBody filterUserDto: FilterUserDto) = handleResponse { userService.getUsers(filterUserDto) }
+
 }
