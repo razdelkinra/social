@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { NotificationManager } from "react-notifications";
 import { getTokenApi } from "../../api";
 
 export const slice = createSlice({
@@ -37,7 +38,7 @@ export const getToken = (data) => (dispatch) => {
       localStorage.setItem("token", data);
     })
     .catch((error) => {
-      error.clientMessage = "Ошибка при получении токена";
+      NotificationManager.error("Ошибка при получении токена");
       dispatch(getTokenError({ error }));
     });
 };

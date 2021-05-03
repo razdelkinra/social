@@ -12,15 +12,20 @@ import { ReactComponent as Add1 } from "../../images/add1.svg";
 
 import "./UserList.css";
 
-export const UserList = ({ getList, type }) => {
-  const [list, setList] = useState([1]);
+export const UserList = ({ getList, type, users }) => {
+  const [list, setList] = useState([]);
   const selfId = useSelector((state) => state.profile.data.id);
 
   useEffect(() => {
-    getList()
-      .then((resp) => setList(resp.data))
-      .catch(() => setList([]));
+    getList &&
+      getList()
+        .then((resp) => setList(resp.data))
+        .catch(() => setList([]));
   }, [getList]);
+
+  useEffect(() => {
+    users?.length > 0 ? setList(users) : setList([]);
+  }, [users]);
 
   const getRandomInt = (max) => Math.floor(Math.random() * max);
   const boys = {
@@ -35,17 +40,16 @@ export const UserList = ({ getList, type }) => {
   };
 
   const addFriendHandler = (id) => {
-    if (type === "users") {
-      requestToFriendApi(id, selfId);
-    } else {
+    if (type === "requests") {
       makeFriendsApi(id);
+    } else {
+      requestToFriendApi(id, selfId);
     }
   };
 
   return (
     <div className="users">
       {list.map((user) => {
-        console.log(user)
         return (
           <div className="users__item">
             <div className="users__avatar">

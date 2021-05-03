@@ -1,6 +1,6 @@
 .users {
   display: flex;
-  padding: 28px;
+  padding: 12px;
   flex-wrap: wrap;
 }
 

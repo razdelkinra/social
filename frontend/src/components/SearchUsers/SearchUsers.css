@@ -1,0 +1,20 @@
+.search-users {
+  display: flex;
+  width: 50%;
+  margin-left: 18px;
+}
+
+.search-users input {
+  background: transparent;
+  width: 100%;
+  max-width: 250px;
+  padding: 8px;
+  border: 1px solid white;
+  border-radius: 10px;
+  color: #fff;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  margin: 8px;
+}

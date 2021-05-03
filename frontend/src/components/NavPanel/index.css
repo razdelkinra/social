@@ -7,7 +7,7 @@
   backdrop-filter: blur(10px);
   align-items: center;
   padding: 0 10px;
-  margin: 0;
+  margin: 0 0 16px 0;
 }
 li {
   list-style: none;
@@ -30,17 +30,6 @@ li::before {
   z-index: -1;
   transition: 0.2s;
   border-radius: 25px;
-}
-
-li:hover::before {
-  background: linear-gradient(to bottom, #e8edec, #d2d1d3);
-  box-shadow: 0px 3px 20px 0px black;
-  transform: scale(1.2);
-}
-
-li:hover {
-  color: black;
-  border: none !important;
 }
 
 li.active {

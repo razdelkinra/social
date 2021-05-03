@@ -5,6 +5,8 @@ import { LoginForm } from "./components/LoginForm";
 import { SignUpForm } from "./components/SignUpForm";
 import { UserPage } from "./containers/UserPage";
 import { PrivateRoute, PublicRoute } from "./components/Routes";
+import { NotificationContainer } from "react-notifications";
+import "react-notifications/lib/notifications.css";
 
 const App = () => {
   return (
@@ -16,6 +18,7 @@ const App = () => {
           <PrivateRoute path="/" component={UserPage} />
         </Switch>
       </Router>
+      <NotificationContainer />
     </Provider>
   );
 };

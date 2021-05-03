@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { NavPanel } from "../NavPanel";
 import { UserList } from "../UserList";
+import { SearchUsers } from "../SearchUsers";
 import {
   getFriendsApi,
   getUsersApi,
   getRequestsToFriendApi,
+  searchUsersApi,
 } from "../../api/index";
 import "./index.css";
 
@@ -15,16 +17,14 @@ export const UserNavigation = () => {
     { title: "Users", type: "users" },
     { title: "Friend request", type: "requests" },
     { title: "Friends", type: "friends" },
-    { title: "Message", type: "messages" },
-    { title: "News", type: "news" },
+    { title: "Search", type: "search" },
   ];
 
   const TabContent = {
     users: <UserList getList={getUsersApi} type={activeTab} />,
     friends: <UserList getList={getFriendsApi} type={activeTab} />,
     requests: <UserList getList={getRequestsToFriendApi} type={activeTab} />,
-    messages: null,
-    news: null,
+    search: <SearchUsers searchUsers={searchUsersApi} />,
   };
 
   return (

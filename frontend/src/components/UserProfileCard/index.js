@@ -11,9 +11,9 @@ export const UserProfileCard = ({ profile }) => {
         <h2 className="user-profile__body-name">
           {firstName} {lastName}{" "}
         </h2>
-        <h4>{birthDay}</h4>
-        <h4>{city}</h4>
-        <h4>{interests}</h4>
+        <h4 style={{ color: "gold" }}>{birthDay}</h4>
+        <h4 style={{ color: "blueviolet" }}>{city}</h4>
+        <h4 style={{ color: "crimson" }}>{interests}</h4>
       </div>
     </div>
   );
