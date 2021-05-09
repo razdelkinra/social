@@ -4,7 +4,7 @@ services:
 
   # Database Service (Mysql)
   db:
-    image: mysql:5.7
+    image: mysql
     ports:
       - "3306:3306"
     restart: always
@@ -13,6 +13,8 @@ services:
       - MYSQL_DATABASE=otus
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=admin
+    volumes:
+      - db-data:/var/lib/mysql
     networks:
       - social
 
@@ -31,6 +33,18 @@ services:
       - DATABASE_PASSWORD=admin
       - DATABASE_NAME=otus
       - DATABASE_PORT=3306
+    networks:
+      - social
+
+  # Frontend Service
+  app-client:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
     networks:
       - social
 

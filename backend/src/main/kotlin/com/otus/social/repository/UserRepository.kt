@@ -61,8 +61,8 @@ class UserRepository(
 
     fun getUsers(filter: FilterUserDto): List<UserDto> {
         val namedParameters = MapSqlParameterSource().
-        addValue("firstName", filter.firstName + "%").
-        addValue("lastName", filter.lastName + "%")
+        addValue("firstName", filter.firstName.capitalize() + "%").
+        addValue("lastName", filter.lastName.capitalize() + "%")
         val listResult = namedJdbcTemplate.query(SELECT_USER_BY_NAME_QUERY, namedParameters, UserMapper())
         return if (listResult.isEmpty()) arrayListOf() else listResult
     }

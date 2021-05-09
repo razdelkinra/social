@@ -4,7 +4,7 @@ import { NotificationManager } from "react-notifications";
 function Service(httpMethod, path, payload, messages, headers) {
   const token = localStorage.getItem("token");
   const headerAuth = token && { Authorization: token };
-  const url = "http://localhost:8899/";
+  const url = "http://localhost:3000/";
   const cancel = axios.CancelToken.source();
 
   const service = axios.create({

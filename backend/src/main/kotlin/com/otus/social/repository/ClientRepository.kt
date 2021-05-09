@@ -28,7 +28,7 @@ class ClientRepository(
         val namedParameters = MapSqlParameterSource().
         addValue("login", login)
         val listResult = namedJdbcTemplate.query(SELECT_CLIENT_QUERY, namedParameters, ClientMapper())
-        return if (listResult.isEmpty() && !passwordEncoder.matches(password, listResult[0].password)) null else listResult[0]
+        return if (listResult.isEmpty() || !passwordEncoder.matches(password, listResult[0].password)) null else listResult[0]
     }
 
     fun findByToken(token: String): ClientDto? {
