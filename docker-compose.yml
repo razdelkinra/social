@@ -37,7 +37,7 @@ services:
       - social
 
   # Frontend Service
-  app-client:
+  frontend:
     build:
       context: ./frontend
       dockerfile: ./Dockerfile
