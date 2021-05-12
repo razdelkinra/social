@@ -41,7 +41,7 @@ class UserService(
 
     fun getUser(id: Long) = Either.unsafeCatch { userRepository.getUser(id) }
 
-    fun getUsers(filter: FilterUserDto) = Either.unsafeCatch { userRepository.getUsers(filter) }
+    fun getUsers(filter: FilterUserDto, id: Long) = Either.unsafeCatch { userRepository.getUsers(filter).filter { it.id != id } }
 
     fun getUsers(id: Long) = Either.unsafeCatch { userRepository.getUsers().filterNot { user -> user.id == id } }
 
