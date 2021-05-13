@@ -8,8 +8,11 @@ export const SearchUsers = ({ searchUsers }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    if (firstName.length > 3 || lastName.length > 3) {
-      searchUsers({ firstName, lastName }).then((resp) => setUsers(resp.data));
+    if (firstName.length > 0 || lastName.length > 0) {
+      searchUsers({ firstName, lastName }).then((resp) => {
+        let size = resp.data.length > 10 ? 10 : resp.data.length
+        setUsers(resp.data.slice(0, size))
+      });
     } else {
       setUsers([]);
     }
@@ -19,12 +22,12 @@ export const SearchUsers = ({ searchUsers }) => {
     <div>
       <div className="search-users">
         <input
-          placeholder="Enter First Name"
+          placeholder="firstname"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
         <input
-          placeholder="Enter Last Name"
+          placeholder="lastname"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />

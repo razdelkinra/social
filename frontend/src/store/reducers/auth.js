@@ -38,7 +38,7 @@ export const getToken = (data) => (dispatch) => {
       localStorage.setItem("token", data);
     })
     .catch((error) => {
-      NotificationManager.error("Ошибка при получении токена");
+      NotificationManager.error("Password or login incorrect");
       dispatch(getTokenError({ error }));
     });
 };

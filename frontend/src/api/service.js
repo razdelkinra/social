@@ -6,7 +6,7 @@ function Service(httpMethod, path, payload, messages, headers) {
   const headerAuth = token && { Authorization: token };
   let query = window.location.href
   let end = window.location.href.indexOf('3000')
-  const url = query.substr(0,end + 5) ;
+  const url = query.substr(0, end + 5) ;
   const cancel = axios.CancelToken.source();
 
   const service = axios.create({
@@ -34,7 +34,6 @@ function Service(httpMethod, path, payload, messages, headers) {
       return config;
     },
     function (error) {
-      NotificationManager.error(messages?.error || "Что то пошло не так");
       return Promise.reject(error);
     }
   );
