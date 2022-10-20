@@ -36,7 +36,7 @@ class UserService(
     }
 
 
-    fun updateUser(login: String, user: UserDto) : Long  {
+    fun updateUser(login: String, user: UserDto): Long {
         val entity = User(user.id, user.firstName, user.lastName, user.birthDay, user.gender.name, user.city, user.interests)
         val client = clientService.findByLogin(login)
         if (client?.userId != user.id) {
@@ -46,7 +46,9 @@ class UserService(
         return userRepository.save(entity).id!!
     }
 
-    fun getUser(id: Long): Either<Throwable, User?> = Either.unsafeCatch { userRepository.findByIdOrNull(id) }
+    fun getUser(id: Long): User? {
+        return userRepository.findByIdOrNull(id)
+    }
 
     fun getUsers(filter: FilterUserDto, id: Long): Either<Throwable, List<User>> = Either.unsafeCatch {
         if (filter.firstName != null) {
@@ -56,12 +58,14 @@ class UserService(
         }
     }
 
-    fun getUsers(id: Long): List<User> { return userRepository.findAll().filterNot { user -> user.id == id } }
+    fun getUsers(id: Long): List<User> {
+        return userRepository.findAll().filterNot { user -> user.id == id }
+    }
 
     fun getUserByLogin(login: String): User {
-         clientService.findByLogin(login)?.let {
-             return userRepository.findById(it.userId).get()
-         }
+        clientService.findByLogin(login)?.let {
+            return userRepository.findById(it.userId).get()
+        }
         throw NotFoundException("")
     }
 

@@ -8,8 +8,7 @@ import com.otus.social.model.Failure
 import com.otus.social.service.FriendRequestService
 import com.otus.social.service.FriendService
 import com.otus.social.utils.getId
-import com.otus.social.utils.handleResponse
-import com.otus.social.utils.wrapResponse
+import com.otus.social.utils.saveResponse
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
@@ -35,7 +34,7 @@ class FriendController(
     )
     @GetMapping("/api/friends")
     fun getFriends(@ApiIgnore authentication: Authentication) =
-            handleResponse { friendService.getFriends(authentication.getId()) }
+            saveResponse { friendService.getFriends(authentication.getId()) }
 
 
     @ApiOperation(value = "Add friend")
@@ -48,7 +47,7 @@ class FriendController(
     )
     @PostMapping("/api/friends")
     fun addFriend(@ApiIgnore authentication: Authentication, @RequestBody friendDto: FriendApproveDto) =
-            wrapResponse { friendService.addFriend(authentication.getId(), friendDto.friendId) }
+            saveResponse { friendService.addFriend(authentication.getId(), friendDto.friendId) }
 
     @ApiOperation(value = "Get friend request list")
     @ApiResponses(
@@ -60,7 +59,7 @@ class FriendController(
     )
     @GetMapping("/api/friends/requests")
     fun getFriendRequests(@ApiIgnore authentication: Authentication) =
-            wrapResponse { friendRequestService.getFriendRequest(authentication.getId()) }
+            saveResponse { friendRequestService.getFriendRequest(authentication.getId()) }
 
     @ApiOperation(value = "Make friend request")
     @ApiResponses(
@@ -72,6 +71,6 @@ class FriendController(
     )
     @PostMapping("/api/friends/request")
     fun addFriendRequest(@RequestBody friendRequestDto: FriendRequestDto) =
-            wrapResponse { friendRequestService.addFriendRequest(friendRequestDto.userId, friendRequestDto.fromUserId) }
+            saveResponse { friendRequestService.addFriendRequest(friendRequestDto.userId, friendRequestDto.fromUserId) }
 
 }

@@ -6,12 +6,10 @@ import arrow.core.nonFatalOrThrow
 import arrow.core.right
 import com.otus.social.SocialApplication
 import com.otus.social.model.SocialUserDetails
-import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.User
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 private val logger = LoggerFactory.getLogger(SocialApplication::class.java)
 
@@ -45,9 +43,9 @@ fun handleResponse(f: () -> Either<Throwable, *>) : ResponseEntity<*> =
         }
     }
 
-fun  <A> wrapResponse(f: () -> A): ResponseEntity<*> =
+fun <A> saveResponse(f: () -> A): ResponseEntity<*> =
         try {
-            var right = f().apply {  }
+            var right = f().apply { }
             if (right == null) ResponseEntity.noContent().build<String>() else ResponseEntity.ok(right as Any)
         } catch (t: Throwable) {
             logger.error("Error handle response with message $t.message")

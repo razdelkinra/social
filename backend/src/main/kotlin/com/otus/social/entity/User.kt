@@ -9,8 +9,8 @@ class User(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long? = null,
-        val firstName: String? = "",
-        val lastName: String? = "",
+        val firstName: String,
+        val lastName: String,
         @Column(name = "birthday")
         val birthDay: LocalDate? = null,
         val gender: String = Gender.UNKNOWN.name,

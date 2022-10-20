@@ -23,11 +23,11 @@ class ClientService(
 ) {
 
     @Transactional
-    fun getToken(username: String, password: String): String {
+    fun generateToken(username: String, password: String): String {
         clientRepository.findByLoginAndPassword(username, password)?.let { client ->
-            userRepository.findById(client.userId).get().let {
-                val token = generateToken(it)
-                clientRepository.save(Client(null, client.userId, client.login, client.password, token))
+            userRepository.findById(client.userId).get().let { user ->
+                val token = generateToken(user)
+                clientRepository.save(Client(null, user.id!!, client.login, client.password, token))
                 return token
             }
         }
@@ -36,9 +36,7 @@ class ClientService(
 
     fun findByToken(token: String): UserDetails? {
         clientRepository.findByToken(token)?.let { client ->
-            val user = SocialUserDetails(client.login, client.password, true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
-            user.id = client.userId
-            return user
+            return SocialUserDetails(client.userId, client.login, client.password, true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
         }
         throw UserNotFound(USER_NOT_FOUND)
     }

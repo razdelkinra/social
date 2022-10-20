@@ -26,14 +26,9 @@ import java.time.LocalDate
 @Transactional
 @Rollback
 class UserControllerTest {
+
     @Autowired
     lateinit var userService: UserService
-
-    @Autowired
-    lateinit var clientService: ClientService
-
-    @Autowired
-    lateinit var userRepository: UserRepository
 
     @Test
     fun shouldSaveUser() {
@@ -68,8 +63,7 @@ class UserControllerTest {
         userService.saveUser(user).let { id ->
             userService.saveUser(user2)
             userService.saveUser(user3)
-            val userDetails = SocialUserDetails(login, "123456", true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
-            userDetails.id = id
+            val userDetails = SocialUserDetails(id, login, "123456", true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
             Mockito.`when`(authentication.principal).thenReturn(userDetails)
             val users = controller.getUsers(authentication).body as List<User>
             Assert.assertTrue(users.size == 5)
