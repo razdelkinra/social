@@ -5,13 +5,11 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 
-@Entity(name = "clients")
-class Client(
+@Entity(name = "friends")
+class Friend(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long? = null,
-        val userId: Long,
-        val login: String,
-        val password: String,
-        val token: String?
+        val userId: Long? = null,
+        val friendId: Long? = null
 )

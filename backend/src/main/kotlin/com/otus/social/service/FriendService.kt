@@ -1,47 +1,30 @@
 package com.otus.social.service
 
 import arrow.core.Either
-import com.otus.social.dto.request.FriendApplication
-import com.otus.social.dto.request.FriendRequestDto
+import com.otus.social.entity.Friend
+import com.otus.social.entity.FriendRequest
+import com.otus.social.model.UserNotFound
 import com.otus.social.repository.FriendRepository
+import com.otus.social.repository.FriendRequestRepository
 import com.otus.social.utils.unsafeCatch
 import org.springframework.stereotype.Service
 
 @Service
 class FriendService(
-        private val friendRepository: FriendRepository,
-        private val userService: UserService
+        private var friendRepository: FriendRepository,
+        private var friendRequestRepository: FriendRequestRepository
 ) {
 
-    fun addFriend(userId: Long, friendId: Long) = Either.unsafeCatch {
-        if (friendId == 0L) throw RuntimeException()
+    fun addFriend(userId: Long, friendId: Long): Friend {
+        if (friendId == 0L) throw UserNotFound("")
         deleteFriendRequest(userId, friendId)
-        friendRepository.addFriend(userId, friendId)
+        return friendRepository.save(Friend(null, userId, friendId))
     }
 
-    fun getFriends(userId: Long) = Either.unsafeCatch { friendRepository.getFriend(userId) }
-
-    fun getFriendRequest(userId: Long) = Either.unsafeCatch {
-        val listApplication = mutableListOf<FriendApplication>()
-        friendRepository.getFriendRequest(userId).forEach { request ->
-            userService.getUser(request.fromUserId).orNull()?.let { friend ->
-                val friendApplication = FriendApplication(friend.id, friend.firstName, friend.lastName, request.message)
-                listApplication.add(friendApplication)
-            }
-        }
-        listApplication
-    }
-
-    fun addFriendRequest(friendRequestDto: FriendRequestDto) = Either.unsafeCatch {
-        friendRepository.getFriendRequestFromMe(friendRequestDto.fromUserId).let { myRequests ->
-            if (!myRequests.asSequence().any { request -> request.userId == friendRequestDto.userId }) {
-                friendRepository.saveRequest(friendRequestDto)
-            }
-        }
-    }
+    fun getFriends(userId: Long) = Either.unsafeCatch { friendRepository.getAllByUserId(userId) }
 
     fun deleteFriendRequest(userId: Long, fromUserId: Long) = Either.unsafeCatch {
-        friendRepository.deleteFriendRequest(userId, fromUserId)
+        friendRequestRepository.delete(FriendRequest(null, userId, fromUserId))
     }
 
 }

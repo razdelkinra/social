@@ -11,5 +11,4 @@ class WebConfiguration : WebMvcConfigurer {
         registry.addMapping("/**").allowedMethods("*")
     }
 
-
 }

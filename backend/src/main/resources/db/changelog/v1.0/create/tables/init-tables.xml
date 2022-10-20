@@ -4,13 +4,13 @@
 
     <changeSet id="create-users-table" author="rrazdelkin" dbms="mysql,h2">
         <createTable tableName="USERS">
-            <column name="user_id" type="BIGINT" autoIncrement="true">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_USER_ID_KEY"/>
             </column>
-            <column name="firstname" type="VARCHAR(100)">
+            <column name="first_name" type="VARCHAR(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="lastName" type="VARCHAR(100)">
+            <column name="last_name" type="VARCHAR(100)">
                 <constraints nullable="true"/>
             </column>
             <column name="gender" type="VARCHAR(100)">
@@ -19,7 +19,7 @@
             <column name="city" type="VARCHAR(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="interests" type="VARCHAR(512)">
+            <column name="interest" type="VARCHAR(512)">
                 <constraints nullable="true"/>
             </column>
             <column name="birthday" type="DATE">
@@ -30,8 +30,11 @@
 
     <changeSet id="create-clients-table" author="rrazdelkin">
         <createTable tableName="CLIENTS">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CLIENT_ID_KEY"/>
+            </column>
             <column name="user_id" type="BIGINT" >
-                <constraints nullable="false" foreignKeyName="PK_USER_ID_KEY"/>
+                <constraints nullable="false"/>
             </column>
             <column name="login" type="VARCHAR(100)">
                 <constraints nullable="false"/>
@@ -47,6 +50,9 @@
 
     <changeSet id="create-friends-table" author="rrazdelkin">
         <createTable tableName="FRIENDS">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_FRIEND_ID_KEY"/>
+            </column>
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="PK_USER_ID_KEY"/>
             </column>
@@ -58,17 +64,14 @@
 
     <changeSet id="create-friend_request-table" author="rrazdelkin">
         <createTable tableName="FRIEND_REQUEST">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_FRIEND_REQUEST_ID_KEY"/>
+            </column>
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="PK_USER_ID_KEY"/>
             </column>
-            <column name="from_user_id" type="BIGINT">
+            <column name="friend_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="PK_USER_ID_KEY"/>
-            </column>
-            <column name="request_date" type="TIMESTAMP">
-                <constraints nullable="true"/>
-            </column>
-            <column name="message" type="VARCHAR(1000)">
-                <constraints nullable="true"/>
             </column>
         </createTable>
         <modifySql dbms="mysql">
@@ -78,46 +81,46 @@
 
     <changeSet id="insert default users" author="rrazdelkin">
         <insert tableName="USERS">
-            <column name="user_id">1</column>
-            <column name="firstname">Ebony</column>
-            <column name="lastName">Bridges</column>
+            <column name="id">1</column>
+            <column name="first_name">Ebony</column>
+            <column name="last_name">Bridges</column>
             <column name="birthday">1981-02-15</column>
             <column name="gender">female</column>
-            <column name="interests">Sport, handmade</column>
+            <column name="interest">Sport, handmade</column>
             <column name="city">Sidney</column>
         </insert>
         <insert tableName="USERS">
-            <column name="user_id">2</column>
-            <column name="firstname">Kurt</column>
-            <column name="lastName">Vonnegut</column>
+            <column name="id">2</column>
+            <column name="first_name">Kurt</column>
+            <column name="last_name">Vonnegut</column>
             <column name="birthday">1922-11-11</column>
             <column name="gender">male</column>
-            <column name="interests">Books, music</column>
+            <column name="interest">Books, music</column>
             <column name="city">Indiana</column>
         </insert>
         <insert tableName="USERS">
-            <column name="user_id">3</column>
-            <column name="firstname">Alex</column>
-            <column name="lastName">Navalny</column>
+            <column name="id">3</column>
+            <column name="first_name">Alex</column>
+            <column name="last_name">Navalny</column>
             <column name="birthday">1976-04-06</column>
             <column name="gender">male</column>
-            <column name="interests">Politics</column>
+            <column name="interest">Politics</column>
             <column name="city">Moscow</column>
         </insert>
         <insert tableName="CLIENTS">
             <column name="user_id">1</column>
             <column name="login">ebony</column>
-            <column name="password">$2a$10$MRFwsUpNMWKo93KwPnLkbefWjS/m.IbY//KwvWoq8AzrS.qiQCU4a</column>
+            <column name="password">123456</column>
         </insert>
         <insert tableName="CLIENTS">
             <column name="user_id">2</column>
             <column name="login">kurt</column>
-            <column name="password">$2a$10$MRFwsUpNMWKo93KwPnLkbefWjS/m.IbY//KwvWoq8AzrS.qiQCU4a</column>
+            <column name="password">123456</column>
         </insert>
         <insert tableName="CLIENTS">
             <column name="user_id">3</column>
             <column name="login">alex</column>
-            <column name="password">$2a$10$MRFwsUpNMWKo93KwPnLkbefWjS/m.IbY//KwvWoq8AzrS.qiQCU4a</column>
+            <column name="password">123456</column>
         </insert>
     </changeSet>
 </databaseChangeLog>

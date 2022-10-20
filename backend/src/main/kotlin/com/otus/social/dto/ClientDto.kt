@@ -4,5 +4,5 @@ class ClientDto(
         var userId: Long,
         var login: String,
         var password: String,
-        var token: String?
+        var token: String
 )
