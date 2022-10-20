@@ -30,10 +30,13 @@ class TokenControllerTest {
     fun shouldGetToken() {
         val controller = TokenController(clientService)
         val (login, firstName, user) = getUser("John")
-        userService.addUser(user)
-        val dto = LoginDto("jdillinger", "123456")
-        val token = controller.getToken(dto).body
-        Assert.assertTrue(token?.length!! > 30)
+        userService.saveUser(user)
+        var client = clientService.findByLogin(login).let {
+            val dto = LoginDto("jdillinger", it!!.password)
+            val token = controller.getToken(dto).body as String
+            Assert.assertTrue(token.length > 30)
+        }
+
     }
 
     private fun getUser(userName: String): Triple<String, String, UserDto> {

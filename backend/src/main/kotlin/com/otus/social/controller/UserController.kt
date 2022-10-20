@@ -7,7 +7,7 @@ import com.otus.social.model.Failure
 import com.otus.social.service.UserService
 import com.otus.social.utils.getId
 import com.otus.social.utils.getLogin
-import com.otus.social.utils.handleResponse
+import com.otus.social.utils.saveResponse
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
@@ -31,7 +31,7 @@ class UserController(private val userService: UserService) {
     )
     @GetMapping("/api/profile")
     fun getProfile(@ApiIgnore authentication: Authentication) =
-            handleResponse { userService.getUserByLogin(authentication.getLogin()) }
+            saveResponse { userService.getUserByLogin(authentication.getLogin()) }
 
     @ApiOperation(value = "Get users")
     @ApiResponses(
@@ -42,7 +42,7 @@ class UserController(private val userService: UserService) {
             ]
     )
     @GetMapping("/api/users")
-    fun getUsers(@ApiIgnore authentication: Authentication) = handleResponse { userService.getUsers(authentication.getId()) }
+    fun getUsers(@ApiIgnore authentication: Authentication) = saveResponse { userService.getUsers(authentication.getId()) }
 
     @ApiOperation(value = "New user registration")
     @ApiResponses(
@@ -52,7 +52,7 @@ class UserController(private val userService: UserService) {
             ]
     )
     @PostMapping("/registration")
-    fun saveUser(@RequestBody user: UserDto) = handleResponse { userService.addUser(user) }
+    fun saveUser(@RequestBody user: UserDto) = saveResponse { userService.saveUser(user) }
 
     @ApiOperation(value = "Update user")
     @ApiResponses(
@@ -64,7 +64,7 @@ class UserController(private val userService: UserService) {
     )
     @PutMapping("/api/users")
     fun updateUser(@ApiIgnore authentication: Authentication, @RequestBody user: UserDto) =
-            handleResponse { userService.updateUser(authentication.getLogin(), user) }
+            saveResponse { userService.updateUser(authentication.getLogin(), user) }
 
 
     @GetMapping("/api/users/generate")
@@ -82,6 +82,6 @@ class UserController(private val userService: UserService) {
     )
     @PostMapping("/api/users")
     fun getUsers(@ApiIgnore authentication: Authentication, @RequestBody filterUserDto: FilterUserDto) =
-            handleResponse { userService.getUsers(filterUserDto, authentication.getId()) }
+            saveResponse { userService.getUsers(filterUserDto, authentication.getId()) }
 
 }

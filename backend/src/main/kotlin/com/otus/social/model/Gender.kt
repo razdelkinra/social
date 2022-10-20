@@ -7,5 +7,8 @@ enum class Gender {
     MALE,
 
     @JsonProperty("female")
-    FEMALE
+    FEMALE,
+
+    @JsonProperty("unknown")
+    UNKNOWN
 }

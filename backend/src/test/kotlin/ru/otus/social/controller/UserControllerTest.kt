@@ -7,6 +7,7 @@ import com.otus.social.dto.CredentialDto
 import com.otus.social.dto.request.UserDto
 import com.otus.social.model.Gender
 import com.otus.social.model.SocialUserDetails
+import com.otus.social.repository.UserRepository
 import com.otus.social.service.ClientService
 import com.otus.social.service.UserService
 import org.junit.Assert
@@ -25,20 +26,19 @@ import java.time.LocalDate
 @Transactional
 @Rollback
 class UserControllerTest {
-    @Autowired
-    lateinit var userService: UserService
 
     @Autowired
-    lateinit var clientService: ClientService
+    lateinit var userService: UserService
 
     @Test
     fun shouldSaveUser() {
         val controller = UserController(userService)
         val (login, firstName, user) = getUser("John")
         controller.saveUser(user)
-        val userFromDb = userService.getUserByLogin(login).orNull()
-        Assert.assertTrue(userFromDb?.firstName != null)
-        Assert.assertTrue(userFromDb?.firstName == firstName)
+        userService.getUserByLogin(login).let {
+            Assert.assertTrue(it.firstName != null)
+            Assert.assertTrue(it.firstName == firstName)
+        }
     }
 
     @Test
@@ -48,8 +48,8 @@ class UserControllerTest {
         val authentication = Mockito.mock(Authentication::class.java)
         val userDetails = User(login, "123456", true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
         Mockito.`when`(authentication.principal).thenReturn(userDetails)
-        userService.addUser(user)
-        val userFromController = controller.getProfile(authentication).right().orNull()?.body as UserDto
+        userService.saveUser(user)
+        val userFromController = controller.getProfile(authentication).right().orNull()?.body as com.otus.social.entity.User
         Assert.assertTrue(userFromController.firstName == firstName)
     }
 
@@ -60,14 +60,15 @@ class UserControllerTest {
         val (login2, firstName2, user2) = getUser("John2")
         val (login3, firstName3, user3) = getUser("John3")
         val authentication = Mockito.mock(Authentication::class.java)
-        var id = userService.addUser(user).orNull()
-        userService.addUser(user2)
-        userService.addUser(user3)
-        val userDetails = SocialUserDetails(login, "123456", true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
-        userDetails.id = id!!
-        Mockito.`when`(authentication.principal).thenReturn(userDetails)
-        val users = controller.getUsers(authentication).right().orNull()?.body as List<UserDto>
-        Assert.assertTrue(users.size == 5)
+        userService.saveUser(user).let { id ->
+            userService.saveUser(user2)
+            userService.saveUser(user3)
+            val userDetails = SocialUserDetails(id, login, "123456", true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
+            Mockito.`when`(authentication.principal).thenReturn(userDetails)
+            val users = controller.getUsers(authentication).body as List<User>
+            Assert.assertTrue(users.size == 5)
+        }
+
     }
 
     @Test
@@ -77,8 +78,8 @@ class UserControllerTest {
         val authentication = Mockito.mock(Authentication::class.java)
         val userDetails = User(login, "123456", true, true, true, true, AuthorityUtils.createAuthorityList("USER"))
         Mockito.`when`(authentication.principal).thenReturn(userDetails)
-        userService.addUser(user)
-        val userFromDb = userService.getUserByLogin(login).orNull()
+        userService.saveUser(user)
+        val userFromDb = userService.getUserByLogin(login)
         Assert.assertTrue(userFromDb?.firstName == firstName)
         val credential = CredentialDto(login = login, password = "123456")
         val newUser = UserDto(
@@ -92,7 +93,7 @@ class UserControllerTest {
                 credential = credential
         )
         controller.updateUser(authentication, newUser)
-        val newUserFromDb = userService.getUserByLogin(login).orNull()
+        val newUserFromDb = userService.getUserByLogin(login)
         Assert.assertTrue(newUserFromDb?.firstName == "Tom")
     }
 
